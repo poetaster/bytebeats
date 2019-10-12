@@ -35,13 +35,17 @@ byte sound8(int i) {
   return ((i << 1) ^ ((i << 1) + (i >> 7)&i >> 12)) | i >> (4 - (1 ^ 7 & (i >> 19))) | i >> 7;
 }
 byte sound9(int i) {
-  return (i*(i>>8+i>>9)*100)+sin(i);
+  return (i * (i >> 8 + i >> 9) * 100) + sin(i);
   //return int(i & (i << 3) % (72022 & (i >> 9)) * 283742783 & i);
-  //i*i * ~((i >> 16 | i >> 12) & 215 & ~i >> 8);
-  //(t*(t>>8+t>>9)*100)+sin(t)
 }
 byte sound10(int i) {
   return  i * ((i >> 5 | i >> 8) >> (i >> 16));
+}
+byte sound11(int i) {
+  return ((i * (i >> 8 | i >> 9) & 46 & i >> 8)) ^ (i & i >> 13 | i >> 6);
+}
+byte sound12(int i) {
+  return i * ((i >> 16 | i >> 12) & 215 & ~i >> 8);
 }
 
 
@@ -105,6 +109,12 @@ byte getSound(byte soundtype, int i) {
       {
         return  sound10(i);
       }
+    case 11: {
+        return sound11(i);
+      }
+    case 12: {
+        return sound12(i);
+      }
   }
 }
 
@@ -142,6 +152,9 @@ void loop() {
     if (arduboy.pressed(A_BUTTON) ) {
       currentsound = 5;
       print_cur(F("i * ((i>>12|i>>8))"), F("&63&i>>4)"));
+    } else if (arduboy.pressed(B_BUTTON) ) {
+      currentsound = 11;
+      print_cur(F(" ((i*(i>>8|i>>9)&46&i>>8))"), F("^(i&i>>13|i>>6)"));
     } else {
       currentsound = 1;
       print_cur(F("i/13>>(1+((i>>12)&3))|i/2>>"), F("2&(i/6)>>7|i&31*i*(i>>8)"));
@@ -153,6 +166,9 @@ void loop() {
     if (arduboy.pressed(A_BUTTON) ) {
       currentsound = 6;
       print_cur(F("(i^i>>8)|"), F("i<<3&56^i"));
+    } else if (arduboy.pressed(B_BUTTON) ) {
+      currentsound = 12;
+      print_cur(F("i*((i>>16|i>>12)"), F("&215&~i>>8)"));
     } else {
       currentsound = 2;
       print_cur(F("i/3>>(i%40+5)|i/(24+i&3)"), F(" >(i%(15-((i>>15)%8)*6)+5))/8"));
