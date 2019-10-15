@@ -3,7 +3,7 @@ Arduino (Arduboy/Midiboy) sketch demonstrating the sound and vision of bytebeats
 
 Inspired by: https://www.youtube.com/watch?v=GtQdIYUtAHg and launched with: http://wurstcaptures.untergrund.net/music/
 
-On the the Midiboy (blokas.io thanks for this!) or Ardoboy, Use the four direction buttons to change the formula. 
+On the the Midiboy (blokas.io thanks for this!) or Arduboy, Use the four direction buttons to change the formula. 
 
 Keeping holding the button to display the formula being used.
 
